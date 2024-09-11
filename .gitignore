@@ -1,0 +1,6 @@
+*.ipynb
+.env
+mlartifacts/
+mlruns/
+.idea/
+*.pyc
