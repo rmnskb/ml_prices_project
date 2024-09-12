@@ -11,8 +11,8 @@ class FeatureSpider(scrapy.Spider):
     custom_settings = {
         'ITEM_PIPELINES': {
             "estates_scraping.pipelines.FeaturesScrapingPipeline": 300,
-            "estates_scraping.pipelines.GeoScrapingPipeline": 300,
-            "estates_scraping.pipelines.POIScrapingPipeline": 300
+            "estates_scraping.pipelines.GeoScrapingPipeline": 400,
+            "estates_scraping.pipelines.POIScrapingPipeline": 500
         }
     }
 

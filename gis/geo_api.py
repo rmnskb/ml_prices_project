@@ -10,6 +10,11 @@ geocoder = geopy.geocoders.HereV7(
     apikey=HERE_GEO_API
 )
 
+"""
+    The script is supposed to take the data that does not have assigned geodata yet
+    , call an API and commit the data back to the DB
+"""
+
 table_def = {
     'street': 'street'
     , 'houseNumber': 'house_num'
@@ -30,7 +35,7 @@ with get_db() as db:
             FROM postgres.public.flats_geo
             WHERE country IS NULL -- take the non-populated rows only
             ORDER BY flat_id
-            LIMIT 950
+            LIMIT 990 -- API limit is 1000
         """
     )
     results = [row for row in cursor.fetchall()]
