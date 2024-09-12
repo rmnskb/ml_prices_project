@@ -172,15 +172,14 @@ class POIScrapingPipeline:
                     cursor.execute(
                         """
                             INSERT INTO postgres.public.flats_poi (
-                                poi_id, flat_id, name, distance, rating, description, review_count
+                                poi_id, name, distance, rating, description, review_count
                             )
                             VALUES (
-                                %s, %s, %s, %s, %s, %s, %s
+                                %s, %s, %s, %s, %s, %s
                             )
                         """
                         , (
                             item['poi_id']
-                            , item['flat_id']
                             , item['name']
                             , item['distance']
                             , item['rating']
@@ -188,11 +187,18 @@ class POIScrapingPipeline:
                             , item['review_count']
                         )
                     )
-
-                    db.commit()
-
                 else:
                     spider.logger.warn(f"Item already in DB: {item['poi_id']}")
+
+                cursor.execute(  # insert the flat - POI relationship to the database regardless
+                    """
+                        INSERT INTO postgres.public.flats_poi_junction (flat_id, poi_id)
+                        VALUES (%s, %s)
+                    """
+                    , (item['flat_id'], item['poi_id'])
+                )
+
+                db.commit()
 
         return item
 

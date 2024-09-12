@@ -1,7 +1,8 @@
-DROP TABLE IF EXISTS flats;
-DROP TABLE IF EXISTS flats_data;
-DROP TABLE IF EXISTS flats_geo;
-DROP TABLE IF EXISTS flats_poi;
+-- DROP TABLE IF EXISTS flats;
+-- DROP TABLE IF EXISTS flats_data;
+-- DROP TABLE IF EXISTS flats_geo;
+-- DROP TABLE IF EXISTS flats_poi;
+-- DROP TABLE IF EXISTS flats_poi_junction;
 
 CREATE TABLE flats (
     id BIGINT NOT NULL,
@@ -57,12 +58,17 @@ CREATE TABLE flats_geo (
 
 CREATE TABLE flats_poi (
     poi_id BIGINT NOT NULL,
-    flat_id BIGINT NOT NULL,
     name VARCHAR(255),
     distance BIGINT,
     rating INT,
     description VARCHAR(255),
     review_count BIGINT,
-    PRIMARY KEY(poi_id),
-    FOREIGN KEY(flat_id) REFERENCES flats(id)
+    PRIMARY KEY(poi_id)
+);
+
+CREATE TABLE flats_poi_junction (
+    poi_id BIGINT NOT NULL,
+    flat_id BIGINT NOT NULL,
+    FOREIGN KEY (poi_id) REFERENCES flats_poi(poi_id),
+    FOREIGN KEY (flat_id) REFERENCES flats(id)
 );

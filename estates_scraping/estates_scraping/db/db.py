@@ -25,7 +25,7 @@ def get_db():
     return conn
 
 
-def init_db():
+def init_db() -> None:
     with get_db() as db:
         # Open and read the SQL file
         cursor = db.cursor()
@@ -38,8 +38,6 @@ def init_db():
         # Commit the changes
         db.commit()
 
-    print("Database schema created successfully!")
-
 
 def check_ids() -> list[int]:
     with get_db() as db:
@@ -50,7 +48,7 @@ def check_ids() -> list[int]:
                 FROM postgres.public.flats
                 WHERE checked_flg IS FALSE
                 ORDER BY id 
-                LIMIT 50
+                LIMIT 1000
             """
         )
         ids = [row[0] for row in cursor.fetchall()]
