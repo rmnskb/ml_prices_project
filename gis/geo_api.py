@@ -75,4 +75,5 @@ with get_db() as db:
                 )
             )
 
+        print(f"Total rows added: {len(results)}")
         db.commit()
