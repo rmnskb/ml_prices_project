@@ -47,7 +47,9 @@ def check_ids() -> list[int]:
                 SELECT id
                 FROM postgres.public.flats
                 WHERE checked_flg IS FALSE
-                ORDER BY id 
+                ORDER BY 
+                    scrape_dt DESC
+                    , id 
                 LIMIT 1000
             """
         )

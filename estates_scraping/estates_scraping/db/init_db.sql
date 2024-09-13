@@ -10,6 +10,7 @@ CREATE TABLE flats (
     price NUMERIC(10, 2),
     type INTEGER,
     checked_flg BOOLEAN,
+    scrape_dt DATE DEFAULT CURRENT_DATE,
     PRIMARY KEY(id),
     UNIQUE(id)
 );
@@ -32,7 +33,7 @@ CREATE TABLE flats_data (
     garage INT,
     price NUMERIC(10, 2),
     price_note VARCHAR(255),
-    update_dt VARCHAR(255),
+    update_dt DATE DEFAULT CURRENT_DATE,
     structure_type VARCHAR(255),
     floor VARCHAR(255),
     estate_state VARCHAR(255),

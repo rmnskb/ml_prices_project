@@ -1,5 +1,6 @@
 from .db.db import get_db
 from . import items
+from .utils.parse_date import parse_date
 
 
 class IDScrapingPipeline:
@@ -33,10 +34,18 @@ class IDScrapingPipeline:
                         )
                     )
 
-                    db.commit()
-
                 else:
-                    spider.logger.warn(f"Item already in DB: {item['id']}")
+                    # update the scrape_dt with the latest date
+                    cursor.execute(
+                        """
+                            UPDATE postgres.public.flats
+                            SET scrape_dt = CURRENT_DATE
+                            WHERE id = %s
+                        """
+                        , (item['id'], )
+                    )
+
+                db.commit()
 
         return item
 
@@ -87,7 +96,7 @@ class FeaturesScrapingPipeline:
                             , item['garage']
                             , item['price']
                             , item['price_note']
-                            , item['update_dt']  # Parse into dt format
+                            , parse_date(item['update_dt']) # Parse into dt format
                             , item['structure_type']
                             , item['floor']
                             , item['estate_state']
