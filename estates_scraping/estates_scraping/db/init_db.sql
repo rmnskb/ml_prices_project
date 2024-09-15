@@ -3,6 +3,7 @@
 -- DROP TABLE IF EXISTS flats_geo;
 -- DROP TABLE IF EXISTS flats_poi;
 -- DROP TABLE IF EXISTS flats_poi_junction;
+-- DROP TABLE IF EXISTS flats_features;
 
 CREATE TABLE flats (
     id BIGINT NOT NULL,
@@ -71,5 +72,50 @@ CREATE TABLE flats_poi_junction (
     poi_id BIGINT NOT NULL,
     flat_id BIGINT NOT NULL,
     FOREIGN KEY (poi_id) REFERENCES flats_poi(poi_id),
+    FOREIGN KEY (flat_id) REFERENCES flats(id)
+);
+
+CREATE TABLE flats_features (
+    flat_id BIGINT NOT NULL,
+    usable_area BIGINT,
+    rooms VARCHAR(32),
+    furnished INT,
+    parking_lot INT,
+    terrace INT,
+    balcony INT,
+    loggia INT,
+    elevator INT,
+    cellar INT,
+    easy_access INT,
+    garage INT,
+    structure_type VARCHAR(64),
+    floor BIGINT,
+    estate_state VARCHAR(64),
+    postal_cd BIGINT,
+    district VARCHAR(255),
+    city VARCHAR(255),
+    county VARCHAR(255),
+    state VARCHAR(255),
+    longitude NUMERIC(12, 10),
+    latitude NUMERIC(12, 10),
+    avg_distance NUMERIC(10, 2),
+    avg_rating NUMERIC(3, 2),
+    min_distance_pt NUMERIC(10, 2),
+    update_dt DATE,
+    price NUMERIC(10, 2),
+    rooms_int INT,
+    has_separate_kitchen INT,
+    area_sq NUMERIC(10, 2),
+    avg_distance_sqrt NUMERIC(10, 2),
+    avg_rating_sq NUMERIC(10, 2),
+    avg_area_per_room NUMERIC(10, 2),
+    rooms_bins VARCHAR(16),
+    floor_bins VARCHAR(16),
+    poi_distance_bins VARCHAR(16),
+    pt_distance_bins VARCHAR(16),
+    elevator_usability NUMERIC(5, 2),
+    has_parking_space INT,
+    has_outside_space INT,
+    PRIMARY KEY (flat_id),
     FOREIGN KEY (flat_id) REFERENCES flats(id)
 );

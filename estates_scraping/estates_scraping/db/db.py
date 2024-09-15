@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 from psycopg2 import sql
+from sqlalchemy import create_engine
 import psycopg2
 import os
 
@@ -23,6 +24,12 @@ def get_db():
     )
 
     return conn
+
+
+def get_db_sqlalchemy():
+    connection_str = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
+    return connection_str
 
 
 def init_db() -> None:

@@ -22,8 +22,8 @@ class IDScrapingPipeline:
                     cursor.execute(
                         """
                             INSERT INTO 
-                                postgres.public.flats (id, name, price, type, checked_flg) 
-                            VALUES (%s, %s, %s, %s, %s)
+                                postgres.public.flats (id, name, price, type, checked_flg, scrape_dt) 
+                            VALUES (%s, %s, %s, %s, %s, CURRENT_DATE)
                         """
                         , (
                             item['id']
