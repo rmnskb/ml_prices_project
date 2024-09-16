@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from psycopg2 import sql
 from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
 import psycopg2
 import os
 
@@ -26,7 +27,7 @@ def get_db():
     return conn
 
 
-def get_db_sqlalchemy():
+def get_connection():
     connection_str = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
     return connection_str
@@ -66,4 +67,4 @@ def check_ids() -> list[int]:
 
 
 if __name__ == "__main__":
-    init_db()
+    check_ids()
