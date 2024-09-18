@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from estates_scraping.estates_scraping.db.db import get_db
+from scrape.estates_scraping.db.db import get_db
 import geopy
 import os
 

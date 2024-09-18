@@ -1,6 +1,9 @@
 *.ipynb
 .env
-mlartifacts/
-mlruns/
+mlflow/mlartifacts/
+mlflow/mlruns/
 .idea/
 *.pyc
+airflow/config
+airflow/logs
+airflow/plugins
