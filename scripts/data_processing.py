@@ -1,7 +1,8 @@
 import polars as pl
 import polars.selectors as cs
 from sqlalchemy import create_engine
-from estates_scraping.estates_scraping.db.db import get_connection
+# from scrape.estates_scraping.db.db import get_connection
+from db.utils import get_connection
 
 
 class DataProcessor:

@@ -21,7 +21,8 @@ class IDSpider(scrapy.Spider):
     def parse(self, response: Response, **kwargs: Any) -> Any:
         result_size = response.json()['result_size']
         per_page = response.json()['per_page']
-        number_of_pages = -(result_size // -per_page)  # ceiling division
+        # number_of_pages = -(result_size // -per_page)  # ceiling division
+        number_of_pages = 3  # for testing purposes
         page = response.json()['page']
         id_item = IDItem()
 

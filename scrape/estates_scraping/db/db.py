@@ -27,26 +27,6 @@ def get_db():
     return conn
 
 
-def get_connection():
-    connection_str = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-
-    return connection_str
-
-
-def init_db() -> None:
-    with get_db() as db:
-        # Open and read the SQL file
-        cursor = db.cursor()
-        with open('init_db.sql', 'r') as sql_file:
-            sql_script = sql_file.read()
-
-        # Execute the SQL script
-        cursor.execute(sql.SQL(sql_script))
-
-        # Commit the changes
-        db.commit()
-
-
 def check_ids() -> list[int]:
     with get_db() as db:
         cursor = db.cursor()
