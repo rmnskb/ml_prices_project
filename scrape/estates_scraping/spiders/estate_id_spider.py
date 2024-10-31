@@ -1,6 +1,7 @@
 import scrapy
 from scrapy import Request
 from scrapy.http import Response
+from scrapy.crawler import CrawlerProcess
 from typing import Iterable, Any
 from ..items import IDItem
 
@@ -18,7 +19,7 @@ class IDSpider(scrapy.Spider):
 
         yield scrapy.Request(url)
 
-    def parse(self, response: Response, **kwargs: Any) -> Any:
+    async def parse(self, response: Response, **kwargs: Any) -> Any:
         result_size = response.json()['result_size']
         per_page = response.json()['per_page']
         # number_of_pages = -(result_size // -per_page)  # ceiling division
@@ -37,3 +38,15 @@ class IDSpider(scrapy.Spider):
 
         if page <= number_of_pages:
             yield scrapy.Request(next_page, callback=self.parse)
+
+
+if __name__ == '__main__':
+    process = CrawlerProcess(
+        settings={
+            'CONCURRENT_REQUESTS': 3
+            , 'DOWNLOAD_TIMEOUT': 60
+        }
+    )
+
+    process.crawl(IDSpider)
+    process.start()
